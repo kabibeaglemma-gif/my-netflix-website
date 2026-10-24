@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#141414">
+<title>FlixVault — Movie Universe</title>
+<style>
+:root{--bg:#141414;--red:#e50914;--white:#fff;--muted:#b3b3b3;--panel:#202020}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;overflow-x:hidden}
+button,input{font:inherit}button{cursor:pointer}.nav{position:fixed;z-index:20;inset:0 0 auto;height:68px;padding:0 4%;display:flex;align-items:center;gap:28px;background:linear-gradient(180deg,rgba(0,0,0,.88),transparent);transition:background .25s}.nav.scrolled{background:#101010;box-shadow:0 4px 18px #0005}.brand{font-size:clamp(1.3rem,2.4vw,2rem);font-weight:900;color:var(--red);letter-spacing:-1.5px;text-decoration:none}.navlinks{display:flex;gap:18px;align-items:center}.navlinks a{color:#eee;text-decoration:none;font-size:.9rem;white-space:nowrap}.navlinks a:hover,.navlinks a.active{font-weight:700;color:#fff}.navright{margin-left:auto;display:flex;align-items:center;gap:16px}.iconbtn{background:none;border:0;color:#fff;font-size:1.25rem;padding:6px}.searchbox{display:flex;align-items:center;border:1px solid transparent}.searchbox.open{border-color:#fff;background:#000;padding:2px 7px}.searchbox input{width:0;opacity:0;border:0;outline:0;background:transparent;color:#fff;transition:width .25s,opacity .25s}.searchbox.open input{width:min(28vw,230px);opacity:1;padding:7px}.profile{position:relative}.avatar{background:#2475a8;border:0;color:#fff;border-radius:4px;width:34px;height:30px;font-weight:700}.profilemenu{display:none;position:absolute;right:0;top:40px;background:#111;border:1px solid #444;min-width:180px;padding:12px;border-radius:4px}.profilemenu.show{display:block}.profilemenu button{display:block;background:none;border:0;color:#ddd;padding:9px 4px;text-align:left;width:100%}.hero{min-height:590px;height:78vh;max-height:790px;display:flex;align-items:center;padding:110px 4% 90px;position:relative;background:linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.48) 45%,rgba(0,0,0,.1) 100%),linear-gradient(0deg,#141414 0%,transparent 45%),url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=85') center/cover}
+.hero-content{max-width:620px;position:relative;z-index:1}.eyebrow{font-size:.9rem;font-weight:700;letter-spacing:.22em;color:#ddd}.hero h1{font-size:clamp(2.7rem,6.3vw,5.7rem);line-height:.96;margin:18px 0;text-shadow:0 3px 20px #000}.hero p{font-size:clamp(.95rem,1.4vw,1.15rem);line-height:1.55;max-width:580px;text-shadow:0 2px 8px #000}.hero-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}.primary,.secondary{border:0;border-radius:4px;padding:12px 22px;font-size:1.05rem;font-weight:700;display:inline-flex;align-items:center;gap:9px}.primary{background:#fff;color:#111}.primary:hover{background:#ddd}.secondary{background:rgba(109,109,110,.75);color:#fff}.secondary:hover{background:rgba(109,109,110,.5)}.content{position:relative;margin-top:-70px;z-index:2;padding-bottom:70px}.toolbar{padding:0 4%;display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0 22px}.toolbar h2{font-size:1.15rem;margin:0 8px 0 0}.chip{border:1px solid #555;color:#eee;background:#222;padding:8px 12px;border-radius:20px;font-size:.82rem}.chip.active,.chip:hover{background:#fff;color:#111;border-color:#fff}.status{margin-left:auto;color:var(--muted);font-size:.85rem}.row{margin:0 0 28px}.rowhead{padding:0 4%;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.rowhead h2{font-size:1.25rem;margin:0}.rowhead span{color:#aaa;font-size:.8rem}.cards{display:flex;gap:9px;overflow-x:auto;overflow-y:hidden;padding:12px 4% 22px;scrollbar-width:none;scroll-snap-type:x proximity}.cards::-webkit-scrollbar{display:none}.card{flex:0 0 clamp(135px,15vw,205px);position:relative;aspect-ratio:2/3;border-radius:5px;overflow:hidden;background:#292929;scroll-snap-align:start;transition:transform .22s,box-shadow .22s;cursor:pointer;isolation:isolate}.card:hover,.card:focus-visible{transform:scale(1.075);z-index:3;box-shadow:0 10px 26px #000a;outline:1px solid #ddd}.poster{width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(145deg,#292929,#050505)}.poster-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:15px;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:.04em;background:linear-gradient(145deg,#353535,#111)}.cardshade{position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.97));opacity:.96;display:flex;flex-direction:column;justify-content:flex-end;padding:11px;pointer-events:none}.cardtitle{font-weight:700;font-size:.87rem;margin-bottom:7px}.cardmeta{font-size:.7rem;color:#ddd;display:flex;align-items:center;gap:7px;flex-wrap:wrap}.match{color:#46d369;font-weight:700}.rating{border:1px solid #999;padding:1px 4px}.playmini{position:absolute;top:9px;right:9px;border:2px solid #fff;background:#ffffffdd;color:#111;border-radius:50%;width:33px;height:33px;display:grid;place-items:center;opacity:0;transform:translateY(5px);transition:.2s}.card:hover .playmini,.card:focus-visible .playmini{opacity:1;transform:none}.empty{padding:25px 4%;color:#bbb}.footer{border-top:1px solid #333;padding:28px 4% 45px;color:#888;font-size:.85rem;line-height:1.7}.footer strong{color:#ddd}.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.dialog{width:min(900px,100%);background:#181818;border-radius:8px;overflow:hidden;box-shadow:0 20px 80px #000;position:relative}.close{position:absolute;right:14px;top:14px;z-index:3;border:0;border-radius:50%;background:#111;color:#fff;width:38px;height:38px;font-size:1.5rem}.preview{height:clamp(240px,48vw,480px);display:flex;align-items:center;justify-content:center;text-align:center;padding:25px;background:linear-gradient(0deg,#141414,transparent 65%),linear-gradient(135deg,#333,#111)}.spinner{width:40px;height:40px;border:4px solid #777;border-top-color:var(--red);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}@keyframes spin{to{transform:rotate(360deg)}}.dialogbody{padding:22px 28px 28px}.dialogbody h2{margin:0 0 8px}.dialogbody p{color:#ccc;line-height:1.55}.notice{color:#aaa!important;font-size:.9rem}.modalactions{display:flex;gap:10px;flex-wrap:wrap}.modalactions button{padding:10px 16px;border-radius:4px;border:0;font-weight:700}.mylist{background:#333!important;color:#fff}.toast{position:fixed;z-index:70;bottom:22px;left:50%;transform:translateX(-50%);background:#fff;color:#111;padding:12px 18px;border-radius:5px;display:none;box-shadow:0 5px 25px #0008}.toast.show{display:block}.smallprint{padding:0 4%;font-size:.8rem;color:#888}
+@media(max-width:760px){.nav{height:58px;gap:12px;padding:0 3%}.navlinks{gap:10px;overflow:hidden}.navlinks a{font-size:.75rem}.navlinks a:nth-child(2),.navlinks a:nth-child(4){display:none}.navright{gap:7px}.hero{height:72vh;min-height:500px;padding:95px 5% 80px;background-position:58% center}.hero p{max-width:90%}.content{margin-top:-50px}.toolbar{padding:0 5%}.status{width:100%;margin-left:0}.rowhead{padding:0 5%}.cards{padding-left:5%;padding-right:5%}.card{flex-basis:145px}.brand{font-size:1.3rem}.iconbtn{font-size:1rem}.searchbox.open input{width:105px}}
+@media(max-width:430px){.navlinks a:nth-child(3),.navlinks a:nth-child(5){display:none}.hero h1{font-size:2.7rem}.primary,.secondary{padding:10px 14px;font-size:.95rem}.card{flex-basis:130px}}
+</style>
+</head>
+<body>
+<header class="nav" id="navbar">
+  <a class="brand" href="#" aria-label="FlixVault home">NETFLIX</a>
+  <nav class="navlinks" aria-label="Main navigation">
+    <a class="active" href="#home" data-filter="all">Home</a><a href="#rows" data-filter="tv">TV Shows</a><a href="#rows" data-filter="movies">Movies</a><a href="#rows" data-filter="new">New &amp; Popular</a><a href="#my-list" data-filter="mylist">My List</a>
+  </nav>
+  <div class="navright">
+    <div class="searchbox" id="searchbox"><button class="iconbtn" id="searchToggle" aria-label="Open search">⌕</button><input id="searchInput" type="search" placeholder="Titles, genres..." aria-label="Search titles"></div>
+    <button class="iconbtn" id="notifyBtn" aria-label="Notifications">♧</button>
+    <div class="profile"><button class="avatar" id="profileBtn" aria-label="Profile menu">K</button><div class="profilemenu" id="profilemenu"><button data-profile="Kids">Kids profile</button><button data-profile="Manage Profiles">Manage Profiles</button><button data-profile="Help Centre">Help Centre</button></div></div>
+  </div>
+</header>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">N  SERIES &amp; MOVIES</div>
+    <h1 id="heroTitle">THE MOVIE UNIVERSE</h1>
+    <p id="heroDesc">Big stories. Iconic characters. Non-stop entertainment. Explore your personal cinematic universe, from high-octane Indian blockbusters to gripping international series.</p>
+    <div class="hero-actions"><button class="primary" id="heroPlay">▶ Play</button><button class="secondary" id="heroInfo">ⓘ More Info</button></div>
+  </div>
+</section>
+<main class="content" id="rows">
+  <div class="toolbar">
+    <h2>Explore titles</h2>
+    <button class="chip active" data-category="all">All</button><button class="chip" data-category="Action">Action</button><button class="chip" data-category="Drama">Drama</button><button class="chip" data-category="Comedy">Comedy</button><button class="chip" data-category="Thriller">Thriller</button><button class="chip" data-category="Indian">Indian Cinema</button>
+    <span class="status" id="countStatus">Loading collection…</span>
+  </div>
+  <div id="allRows"></div>
+  <p class="smallprint" id="resultsNote"></p>
+</main>
+<footer class="footer"><strong>NETFLIX</strong> · Personal movie dashboard concept<br>This fan-made interface is not affiliated with Netflix. Posters load from external image sources where available; your own poster files can be placed beside this HTML file and mapped in the script. This page is a catalogue UI, not a video streaming service.</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="dialog"><button class="close" id="closeModal" aria-label="Close dialog">×</button><div class="preview" id="preview"><div><div class="spinner"></div><strong>Preparing your movie…</strong><p class="notice">Preview mode — no video file is connected.</p></div></div><div class="dialogbody"><h2 id="modalTitle">Movie title</h2><div class="cardmeta" id="modalMeta"></div><p id="modalDesc"></p><div class="modalactions"><button class="primary" id="modalPlay">▶ Play</button><button class="mylist" id="modalList">＋ My List</button></div><p class="notice" id="playNotice">To play a real video, connect a video file or a licensed streaming source. This demo doesn't download or stream films.</p></div></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+'use strict';
+const localPosters = {
+  'Pushpa': 'Pushpa.jpeg',
+  'Pushpa 2: The Rule': 'Pushpa 2.jpeg',
+  'Dhamaal 4': 'Dhamaal 4 DVD & Pendrive HIndi Movies 2026.jpeg',
+  'Dhurandhar 2: The Revenge': 'Dhurandhar 2 The Revenge Poster 3.jpeg',
+  'Baahubali': 'baahubali.jpeg',
+  'Money Heist': 'Money Heist Netflix Poster – La Casa De Papel Heist Series Wall Art for Fans & Gamers.jpeg',
+  'Peaky Blinders': 'Peaky Blinders.jpeg',
+  'Your Poster 1': 'jpeg(2)',
+  'Your Poster 2': 'jpeg(4)'
+};
+const movies = [
+['Pushpa','Action','2021','Telugu','A fearless smuggler rises through the red-sandalwood underworld.'],
+['Pushpa 2: The Rule','Action','2024','Telugu','The saga continues as Pushpa faces new rivals and greater stakes.'],
+['Dhamaal 4','Comedy','2026','Hindi','A chaotic comedy adventure full of twists and wild plans.'],
+['Dhurandhar 2: The Revenge','Action','2026','Hindi','A high-stakes action story driven by revenge and ambition.'],
+['Baahubali','Action','2015','Telugu','A legendary warrior uncovers the truth about his royal past.'],
+['Money Heist','Thriller','2017','Spanish','A criminal mastermind leads a carefully planned heist.'],
+['Peaky Blinders','Drama','2013','English','A formidable family builds its empire in post-war Birmingham.'],
+['KGF: Chapter 1','Action','2018','Kannada','An ambitious outsider enters a ruthless gold-mining empire.'],
+['KGF: Chapter 2','Action','2022','Kannada','Rocky faces powerful enemies while protecting his empire.'],
+['RRR','Action','2022','Telugu','Two revolutionaries form an extraordinary friendship.'],
+['Dangal','Drama','2016','Hindi','A former wrestler trains his daughters to compete at the highest level.'],
+['3 Idiots','Comedy','2009','Hindi','Three friends challenge the pressures of an unforgiving education system.'],
+['Jawan','Action','2023','Hindi','A vigilante takes on corruption with a mission of justice.'],
+['Pathaan','Action','2023','Hindi','An elite agent returns to stop a global threat.'],
+['Dhoom 2','Action','2006','Hindi','A master thief challenges a determined detective.'],
+['Drishyam','Thriller','2015','Hindi','A family man uses ingenuity to protect his family.'],
+['Drishyam 2','Thriller','2022','Hindi','A case thought closed resurfaces with dangerous consequences.'],
+['Zindagi Na Milegi Dobara','Drama','2011','Hindi','Three friends embark on a life-changing road trip.'],
+['Border','Drama','1997','Hindi','Soldiers face extraordinary challenges during wartime.'],
+['12th Fail','Drama','2023','Hindi','A young man works to overcome setbacks and pursue his dream.'],
+['Shershaah','Drama','2021','Hindi','A soldier’s courage and sacrifice inspire those around him.'],
+['Chennai Express','Comedy','2013','Hindi','A trip turns into a lively adventure across southern India.'],
+['Hera Pheri','Comedy','2000','Hindi','Three unlikely partners stumble into a comic situation.'],
+['Welcome','Comedy','2007','Hindi','A marriage plan spirals into a series of comic complications.'],
+['Munna Bhai M.B.B.S.','Comedy','2003','Hindi','A lovable goon discovers a new way to help people.'],
+['Andhadhun','Thriller','2018','Hindi','A pianist becomes entangled in a mysterious crime.'],
+['War','Action','2019','Hindi','An agent hunts a former mentor in a dangerous mission.'],
+['Tiger Zinda Hai','Action','2017','Hindi','Agents race to rescue hostages from a dangerous group.'],
+['Singham','Action','2011','Hindi','An honest police officer stands up to a powerful criminal.'],
+['Sooryavanshi','Action','2021','Hindi','An anti-terror officer works to prevent a major attack.'],
+['Kantara','Thriller','2022','Kannada','A village’s traditions collide with authority and land disputes.'],
+['Vikram','Action','2022','Tamil','A covert investigation reveals a much larger criminal network.'],
+['Leo','Action','2023','Tamil','A quiet café owner is drawn into a violent past.'],
+['Jailer','Action','2023','Tamil','A retired jailer takes action to protect his family.'],
+['Maharaja','Thriller','2024','Tamil','A barber seeks answers after an unsettling incident.'],
+['Manjummel Boys','Drama','2024','Malayalam','Friends face a desperate rescue challenge during a trip.'],
+['Premalu','Comedy','2024','Malayalam','A young romance unfolds with humour and uncertainty.'],
+['The Kashmir Files','Drama','2022','Hindi','A drama exploring a painful chapter of modern history.'],
+['Bajrangi Bhaijaan','Drama','2015','Hindi','A kind-hearted man helps a lost child return home.'],
+['Lagaan','Drama','2001','Hindi','Villagers challenge colonial authority through an unlikely cricket match.'],
+['Taare Zameen Par','Drama','2007','Hindi','A teacher helps a child discover his strengths.'],
+['Interstellar','Drama','2014','English','Explorers travel beyond Earth to seek humanity’s future.'],
+['Inception','Thriller','2010','English','A specialist enters dreams to carry out an unusual mission.'],
+['The Dark Knight','Action','2008','English','A masked hero faces a criminal who wants to disrupt a city.'],
+['The Batman','Thriller','2022','English','A detective investigates corruption and a series of riddles.'],
+['The Matrix','Action','1999','English','A programmer discovers that reality is not what it seems.'],
+['The Lord of the Rings: The Fellowship of the Ring','Fantasy','2001','English','A fellowship sets out to destroy a powerful ring.'],
+['The Lord of the Rings: The Two Towers','Fantasy','2002','English','The fellowship’s allies face growing darkness.'],
+['The Lord of the Rings: The Return of the King','Fantasy','2003','English','The final battle for Middle-earth approaches.'],
+['Harry Potter and the Philosopher’s Stone','Fantasy','2001','English','A young wizard discovers a magical world.'],
+['Harry Potter and the Prisoner of Azkaban','Fantasy','2004','English','A new school year brings secrets from the past.'],
+['Avatar','Sci-Fi','2009','English','A marine becomes part of an extraordinary alien world.'],
+['Avatar: The Way of Water','Sci-Fi','2022','English','A family seeks safety among the oceans of Pandora.'],
+['Titanic','Drama','1997','English','Two young people meet aboard a historic ocean liner.'],
+['Gladiator','Action','2000','English','A betrayed general fights his way back toward justice.'],
+['The Shawshank Redemption','Drama','1994','English','An enduring friendship grows inside a prison.'],
+['The Godfather','Drama','1972','English','A crime family navigates loyalty, power, and succession.'],
+['Pulp Fiction','Thriller','1994','English','Interconnected stories unfold in a crime-filled world.'],
+['Forrest Gump','Drama','1994','English','An ordinary man witnesses extraordinary moments in history.'],
+['The Wolf of Wall Street','Drama','2013','English','A stockbroker’s rise brings excess and consequences.'],
+['John Wick','Action','2014','English','A former assassin is pulled back into a dangerous world.'],
+['Mission: Impossible – Fallout','Action','2018','English','A team races to stop a global catastrophe.'],
+['Top Gun: Maverick','Action','2022','English','A veteran pilot trains a new generation for a difficult mission.'],
+['Oppenheimer','Drama','2023','English','A scientist’s work changes the course of history.'],
+['Barbie','Comedy','2023','English','A colourful adventure challenges expectations.'],
+['Dune','Sci-Fi','2021','English','A young heir faces destiny on a desert planet.'],
+['Dune: Part Two','Sci-Fi','2024','English','An alliance forms as a battle for the future intensifies.'],
+['Spider-Man: No Way Home','Action','2021','English','A hero faces consequences after a spell goes wrong.'],
+['Avengers: Endgame','Action','2019','English','Heroes unite for one final chance to restore balance.'],
+['Black Panther','Action','2018','English','A new king must defend his nation and legacy.'],
+['Guardians of the Galaxy','Sci-Fi','2014','English','A mismatched crew becomes an unlikely team.'],
+['Deadpool','Comedy','2016','English','An unconventional antihero seeks revenge with irreverent humour.'],
+['The Avengers','Action','2012','English','Earth’s heroes unite against an extraordinary threat.'],
+['Jurassic Park','Adventure','1993','English','A theme park’s prehistoric attractions escape control.'],
+['Jumanji: Welcome to the Jungle','Adventure','2017','English','Players enter a video game and must work together.'],
+['Pirates of the Caribbean: The Curse of the Black Pearl','Adventure','2003','English','A pirate captain pursues a cursed ship and its crew.'],
+['The Hunger Games','Sci-Fi','2012','English','A young contestant challenges an oppressive competition.'],
+['The Maze Runner','Sci-Fi','2014','English','A group searches for a way out of a mysterious maze.'],
+['The Conjuring','Horror','2013','English','Paranormal investigators examine a disturbing case.'],
+['A Quiet Place','Thriller','2018','English','A family survives in a world where sound is dangerous.'],
+['Bird Box','Thriller','2018','English','A mother leads children through a perilous journey.'],
+['Red Notice','Action','2021','English','An FBI profiler teams up with two art thieves.'],
+['The Adam Project','Sci-Fi','2022','English','A time-travelling pilot teams up with his younger self.'],
+['Carry-On','Thriller','2024','English','An airport security officer faces a high-pressure threat.'],
+['Don’t Look Up','Comedy','2021','English','Two astronomers try to warn the world about a looming disaster.'],
+['Stranger Things','Sci-Fi','2016','English','A group of friends uncover supernatural mysteries in their town.'],
+['Wednesday','Mystery','2022','English','A clever student investigates strange events at her academy.'],
+['Squid Game','Thriller','2021','Korean','Contestants face high-stakes games in a mysterious competition.'],
+['Dark','Sci-Fi','2017','German','A disappearance exposes secrets across generations.'],
+['The Witcher','Fantasy','2019','English','A monster hunter navigates a world of magic and conflict.'],
+['Breaking Bad','Drama','2008','English','A chemistry teacher enters a dangerous criminal world.'],
+['Better Call Saul','Drama','2015','English','A struggling lawyer’s choices shape his future.'],
+['The Queen’s Gambit','Drama','2020','English','A gifted chess player pursues greatness while facing personal challenges.'],
+['Lupin','Thriller','2021','French','A gentleman thief draws inspiration from a literary master.'],
+['The Night Agent','Thriller','2023','English','A low-level agent becomes caught in a dangerous conspiracy.'],
+['The Crown','Drama','2016','English','A royal family navigates public duty and private life.'],
+['Narcos','Crime','2015','English','Law enforcement confronts powerful drug cartels.'],
+['The Last Kingdom','Action','2015','English','A warrior struggles between competing loyalties.'],
+['Vikings','Action','2013','English','Seafaring warriors seek power and new lands.'],
+['The Boys','Action','2019','English','A group challenges superheroes who abuse their power.'],
+['One Piece','Adventure','2023','English','A spirited crew searches the seas for a legendary treasure.'],
+['The Family Man','Thriller','2019','Hindi','A family man balances domestic life with secret missions.'],
+['Panchayat','Comedy','2020','Hindi','A city graduate adjusts to life in a rural village.'],
+['Mirzapur','Thriller','2018','Hindi','Rival groups struggle for influence in a lawless town.'],
+['Scam 1992','Drama','2020','Hindi','A stockbroker’s ambition reshapes the financial world around him.'],
+['Sacred Games','Thriller','2018','Hindi','A police officer follows clues to a city-wide conspiracy.'],
+['Delhi Crime','Drama','2019','Hindi','Investigators work through complex criminal cases.'],
+['Kota Factory','Drama','2019','Hindi','Students navigate the pressures of competitive exam preparation.'],
+['Asur','Thriller','2020','Hindi','A forensic team investigates crimes with disturbing symbolism.'],
+['Farzi','Thriller','2023','Hindi','An artist becomes involved in a counterfeit money operation.'],
+['Aspirants','Drama','2021','Hindi','Friends navigate the demanding journey toward civil service careers.']
+];
+const categories = [
+ {name:'Trending Now',filter:()=>true},
+ {name:'Popular on Netflix',filter:m=>['English','Hindi','Telugu','Tamil','Korean'].includes(m.lang)},
+ {name:'Indian Blockbusters',filter:m=>m.lang==='Hindi'||m.lang==='Telugu'||m.lang==='Tamil'||m.lang==='Kannada'||m.lang==='Malayalam'},
+ {name:'Action & Adventure',filter:m=>m.genre==='Action'||m.genre==='Adventure'},
+ {name:'Crime & Thrillers',filter:m=>m.genre==='Thriller'||m.genre==='Crime'||m.genre==='Mystery'},
+ {name:'Comedy Picks',filter:m=>m.genre==='Comedy'},
+ {name:'Drama & Stories',filter:m=>m.genre==='Drama'},
+ {name:'Sci-Fi & Fantasy',filter:m=>m.genre==='Sci-Fi'||m.genre==='Fantasy'},
+ {name:'TV Shows',filter:m=>m.type==='TV Show'},
+ {name:'New & Popular',filter:m=>Number(m.year)>=2021}
+];
+const palette=['#512b58','#153d52','#6b2424','#324a36','#57421f','#243c68','#57322c','#343434','#3c2d50','#20504b'];
+const clean=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const catalog=movies.map((m,i)=>({title:m[0],genre:m[1],year:m[2],lang:m[3],desc:m[4],type:/Money Heist|Peaky Blinders|Stranger Things|Wednesday|Squid Game|Dark|The Witcher|Breaking Bad|Better Call Saul|The Queen’s Gambit|Lupin|The Night Agent|The Crown|Narcos|The Last Kingdom|Vikings|The Boys|One Piece|The Family Man|Panchayat|Mirzapur|Scam 1992|Sacred Games|Delhi Crime|Kota Factory|Asur|Farzi|Aspirants/.test(m[0])?'TV Show':'Movie',match:92+(i*7%8),rating:i%5===0?'16+':i%4===0?'18+':'13+',color:palette[i%palette.length],id:i,poster:localPosters[m[0]]||null}));
+const knownTitles=new Set(catalog.map(m=>m.title));
+/* A large browse catalogue: 100 hand-curated titles are grouped into sections. To reach ~1,000 display cards, the remaining entries are clearly labeled collection entries rather than fabricated real-world film titles. Replace those entries with your own authorized library titles as desired. */
+for(let i=1;catalog.length<1000;i++){
+  const seed=catalog[(i*37)%movies.length];
+  const group=Math.ceil(i/100);
+  catalog.push({...seed,title:`${seed.title} · Collection ${String(group).padStart(2,'0')} / ${String((i-1)%100+1).padStart(3,'0')}`,id:catalog.length,poster:null,collectionEntry:true,match:80+(i*11%20)});
+}
+const myList=new Set();
+let activeCategory='all', activeNav='all', searchTerm='';
+function posterMarkup(m){
+ const file=m.poster;
+ if(file){return `<img class="poster" loading="lazy" src="${encodeURI(file)}" alt="${clean(m.title)} poster" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="poster-fallback" style="display:none;background:linear-gradient(145deg,${m.color},#090909)">${clean(m.title)}</div>`}
+ return `<div class="poster-fallback" style="background:linear-gradient(145deg,${m.color},#090909)">${clean(m.title)}</div>`;
+}
+function cardMarkup(m){return `<article class="card" tabindex="0" role="button" aria-label="More about ${clean(m.title)}" data-id="${m.id}">${posterMarkup(m)}<button class="playmini" aria-label="Open ${clean(m.title)}">▶</button><div class="cardshade"><div class="cardtitle">${clean(m.title)}</div><div class="cardmeta"><span class="match">${m.match}% Match</span><span class="rating">${m.rating}</span><span>${clean(m.genre)}</span></div></div></article>`}
+function getFiltered(){return catalog.filter(m=>{
+ const q=searchTerm.toLowerCase();
+ const matchesSearch=!q||`${m.title} ${m.genre} ${m.lang} ${m.year}`.toLowerCase().includes(q);
+ const matchesCategory=activeCategory==='all'||(activeCategory==='Indian'&&['Hindi','Telugu','Tamil','Kannada','Malayalam'].includes(m.lang))||m.genre.toLowerCase()===activeCategory.toLowerCase();
+ const matchesNav=activeNav==='all'||activeNav==='movies'&&m.type==='Movie'||activeNav==='tv'&&m.type==='TV Show'||activeNav==='new'&&Number(m.year)>=2021||activeNav==='mylist'&&myList.has(m.id);
+ return matchesSearch&&matchesCategory&&matchesNav;
+})}
+function render(){
+ const filtered=getFiltered();const rows=document.getElementById('allRows');
+ document.getElementById('countStatus').textContent=`${filtered.length.toLocaleString()} titles in this view · ${catalog.length.toLocaleString()} catalogue entries`;
+ if(searchTerm||activeCategory!=='all'||activeNav!=='all'){
+   rows.innerHTML=filtered.length?`<section class="row"><div class="rowhead"><h2>${searchTerm?'Search results':activeNav==='mylist'?'My List':'Your selection'}</h2><span>${filtered.length.toLocaleString()} titles</span></div><div class="cards">${filtered.map(cardMarkup).join('')}</div></section>`:`<p class="empty">No titles match this selection. Try another search or category.</p>`;
+ } else {
+   rows.innerHTML=categories.map((cat,idx)=>{const list=filtered.filter(cat.filter).slice(0,100);return `<section class="row"><div class="rowhead"><h2>${cat.name}</h2><span>${list.length} titles ›</span></div><div class="cards" aria-label="${cat.name}">${list.map(cardMarkup).join('')}</div></section>`}).join('');
+ }
+ document.getElementById('resultsNote').textContent=`Showing ${filtered.length.toLocaleString()} entries. The initial collection contains ${movies.length} curated movie/show records plus clearly labeled collection entries to reach 1,000 browse cards. Replace collection entries with real titles and add poster filenames to localPosters for a true 1,000-title catalogue.`;
+}
+const modal=document.getElementById('modal');let selected=null;
+function openMovie(id){selected=catalog.find(m=>m.id===Number(id));if(!selected)return;document.getElementById('modalTitle').textContent=selected.title;document.getElementById('modalMeta').innerHTML=`<span class="match">${selected.match}% Match</span><span>${selected.year}</span><span class="rating">${selected.rating}</span><span>${clean(selected.lang)}</span><span>${clean(selected.genre)}</span>`;document.getElementById('modalDesc').textContent=selected.desc;document.getElementById('preview').style.background=`linear-gradient(0deg,#141414,transparent 65%),linear-gradient(135deg,${selected.color},#090909)`;document.getElementById('modalList').textContent=myList.has(selected.id)?'✓ In My List':'＋ My List';document.getElementById('playNotice').textContent='Demo mode: this catalogue does not contain movie video files. Add a video you own or are authorized to play to connect real playback.';modal.classList.add('open');document.body.style.overflow='hidden';}
+function closeMovie(){modal.classList.remove('open');document.body.style.overflow='';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+document.getElementById('navbar').addEventListener('scroll',()=>{});
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30),{passive:true});
+document.getElementById('searchToggle').addEventListener('click',()=>{const box=document.getElementById('searchbox');box.classList.toggle('open');if(box.classList.contains('open'))document.getElementById('searchInput').focus();else{document.getElementById('searchInput').value='';searchTerm='';render()}});
+document.getElementById('searchInput').addEventListener('input',e=>{searchTerm=e.target.value.trim();render()});
+document.getElementById('profileBtn').addEventListener('click',()=>document.getElementById('profilemenu').classList.toggle('show'));
+document.querySelectorAll('.profilemenu button').forEach(b=>b.addEventListener('click',()=>{toast(`${b.dataset.profile} is a demo menu item`);document.getElementById('profilemenu').classList.remove('show')}));
+document.getElementById('notifyBtn').addEventListener('click',()=>toast('You’re all caught up!'));
+document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();activeNav=a.dataset.filter;activeCategory='all';document.querySelectorAll('.navlinks a').forEach(x=>x.classList.toggle('active',x===a));document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x.dataset.category==='all'));if(activeNav==='all')window.scrollTo({top:0,behavior:'smooth'});render()}));
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.category;activeNav='all';document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.navlinks a').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));render()}));
+document.getElementById('allRows').addEventListener('click',e=>{const card=e.target.closest('.card');if(card)openMovie(card.dataset.id)});
+document.getElementById('allRows').addEventListener('keydown',e=>{const card=e.target.closest('.card');if(card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openMovie(card.dataset.id)}});
+document.getElementById('heroPlay').addEventListener('click',()=>openMovie(0));
+document.getElementById('heroInfo').addEventListener('click',()=>openMovie(0));
+document.getElementById('closeModal').addEventListener('click',closeMovie);
+modal.addEventListener('click',e=>{if(e.target===modal)closeMovie()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMovie()});
+document.getElementById('modalPlay').addEventListener('click',()=>toast('Preview only — no video source is connected yet.'));
+document.getElementById('modalList').addEventListener('click',()=>{if(!selected)return;if(myList.has(selected.id))myList.delete(selected.id);else myList.add(selected.id);document.getElementById('modalList').textContent=myList.has(selected.id)?'✓ In My List':'＋ My List';toast(myList.has(selected.id)?'Added to My List':'Removed from My List');if(activeNav==='mylist')render()});
+render();
+</script>
+</body>
+</html>
